@@ -1,0 +1,51 @@
+﻿<!-- this model is the model returned in the code behind "return view(sortedAR)"
+    this model type has to be the same type with the type used in code behind
+-->
+@model List<LabAssignment6.DataAccess.Academicrecord>
+@{
+    ViewData["Title"] = "Index";
+
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">
+                @Html.ActionLink("Course", "Index", new { orderby="course"})
+            </th>
+            <th scope="col">
+                @Html.ActionLink("Student", "Index", new { orderby="student"})
+            </th>
+            <th scope="col">
+                @Html.ActionLink("Grade", "Index", new { orderby="grade"})
+            </th>
+            <th>
+                <a asp-controller="Academicrecords" asp-action="EditAll">EditAll</a>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.CourseCodeNavigation.Code - @item.CourseCodeNavigation.Title
+                </td>
+                <td>
+                    @item.Student.Id - @item.Student.Name
+                </td>
+                <td>
+                    @item.Grade
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { studentId = item.StudentId, courseId = item.CourseCodeNavigation.Code })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
